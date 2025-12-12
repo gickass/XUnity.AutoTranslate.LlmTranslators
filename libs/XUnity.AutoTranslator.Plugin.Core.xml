@@ -406,6 +406,17 @@
             Gets the number of translation requests that has been completed.
             </summary>
         </member>
+        <member name="P:XUnity.AutoTranslator.Plugin.Core.AutoTranslatorState.PluginInitialized">
+            <summary>
+            Indicates whether the plugin has been successfully fully initialized.
+            </summary>
+        </member>
+        <member name="E:XUnity.AutoTranslator.Plugin.Core.AutoTranslatorState.PluginInitializationCompleted">
+            <summary>
+            Occurs when the plugin initialization process has completed.
+            Use this to perform very early actions that depend on the plugin being fully initialized.
+            </summary>
+        </member>
         <member name="T:XUnity.AutoTranslator.Plugin.Core.ComponentTranslationContext">
             <summary>
             Callback-context object used when this plugin intends to attempt a translation on a component.

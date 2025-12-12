@@ -44,14 +44,6 @@
             <param name="initialLength">The initial length of the buffer.</param>
             <returns>All the data in the stream.</returns>
         </member>
-        <member name="M:XUnity.Common.Extensions.StreamExtensions.ReadFully(Il2CppSystem.IO.Stream,System.Int32)">
-            <summary>
-            Reads all data in the stream into a buffer. If possible specify the length of the stream as the initialLength.
-            </summary>
-            <param name="stream">The stream to read from.</param>
-            <param name="initialLength">The initial length of the buffer.</param>
-            <returns>All the data in the stream.</returns>
-        </member>
         <member name="T:XUnity.Common.Extensions.StringExtensions">
             <summary>
             WARNING: Pubternal API (internal). Do not use. May change during any update.
@@ -739,23 +731,7 @@
             WARNING: Pubternal API (internal). Do not use. May change during any update.
             </summary>
         </member>
-        <member name="M:XUnity.Common.Utilities.UnityObjectReferenceComparer.Equals(System.Object,System.Object)">
-            <summary>
-            WARNING: Pubternal API (internal). Do not use. May change during any update.
-            </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XUnity.Common.Utilities.UnityObjectReferenceComparer.Equals(Il2CppInterop.Runtime.InteropTypes.Il2CppObjectBase,Il2CppInterop.Runtime.InteropTypes.Il2CppObjectBase)">
-            <summary>
-            WARNING: Pubternal API (internal). Do not use. May change during any update.
-            </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XUnity.Common.Utilities.UnityObjectReferenceComparer.GetHashCode(Il2CppInterop.Runtime.InteropTypes.Il2CppObjectBase)">
+        <member name="M:XUnity.Common.Utilities.UnityObjectReferenceComparer.GetHashCode(System.Object)">
             <summary>
             WARNING: Pubternal API (internal). Do not use. May change during any update.
             </summary>
