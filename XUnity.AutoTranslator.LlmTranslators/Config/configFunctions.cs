@@ -12,9 +12,6 @@ public static class ConfigFunctions
     }
     public static void DetectModel(LlmConfig config)
     {
-        if (!string.IsNullOrWhiteSpace(config.Model))
-            return; // already set
-
         var trimmedBase = BaseEndpointBehavior.GetDomain(config.Url);
         var Combine = new Func<string, string>(path => BaseEndpointBehavior.CombineUrl(trimmedBase, path));
 
@@ -42,7 +39,8 @@ public static class ConfigFunctions
             }
             catch { }
         }
-        throw new Exception("Could not auto-detect model name from the provided URL. Please set the model first");
+        config.Model = "default";
+        Console.WriteLine("Could not auto-detect model name from the provided URL. Ignore this if endpoint doesn't require it (ie: koboldcpp, textgenwebui)");
     }
     public static void FindCompatibleUrl(LlmConfig config)
     {
@@ -145,7 +143,7 @@ public static class ConfigFunctions
         }
         if (!found)
             throw new InvalidOperationException(
-                $"Failed to connect {baseUrl}. Endpoint may not exist, or require a valid API key."
+                $"Failed to connect {baseUrl}. Endpoint may not exist, or require a Model to set, or valid API key."
                 );
     }
 }

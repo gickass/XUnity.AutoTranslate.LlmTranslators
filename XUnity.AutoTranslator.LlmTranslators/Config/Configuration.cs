@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using System.Text.RegularExpressions;
-using System.Net;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -29,26 +27,23 @@ public static class Configuration
 
         foreach (var folder in foldersToCheck)
         {
-            string filepath = Path.Combine(folder, file);
-            if (!File.Exists(filepath)) continue;
+            string path = Path.Combine(folder, file);
+            if (!File.Exists(path)) continue;
             var yamlDeserializer = new DeserializerBuilder()
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
 
-            var config = yamlDeserializer.Deserialize<LlmConfig>(File.ReadAllText(filepath, Encoding.UTF8));
+            var config = yamlDeserializer.Deserialize<LlmConfig>(File.ReadAllText(path, Encoding.UTF8));
 
             // Check endpoint url
             ConfigFunctions.FindCompatibleUrl(config);
 
             // When model is not set (Usually for local)
             if (string.IsNullOrWhiteSpace(config.Model))
-            ConfigFunctions.DetectModel(config);
+                ConfigFunctions.DetectModel(config);
 
-            if (config.Url == null)
-                throw new Exception("No URLs configured for the endpoint.");
-            
             return config;
-    }
+        }
         throw new FileNotFoundException($"Could not find '{file}' in AutoTranslator or BepInEx config folder.");
     }
 }

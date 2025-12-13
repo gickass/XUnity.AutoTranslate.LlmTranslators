@@ -17,7 +17,7 @@ public static class BaseEndpointBehavior
         var messages = new JSONArray();
         var systemMessage = new JSONObject();
         systemMessage["role"] = "system";
-        systemMessage["content"] = systemPrompt.ToString();
+        systemMessage["content"] = Regex.Replace(systemPrompt.ToString().Replace("\r","\n"), @"\n+", "\n");
         messages.Add(systemMessage);
 
         var userMessage = new JSONObject();
