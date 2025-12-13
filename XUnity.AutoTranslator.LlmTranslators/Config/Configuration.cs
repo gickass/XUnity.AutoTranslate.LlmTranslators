@@ -9,7 +9,6 @@ namespace XUnity.AutoTranslator.LlmTranslators.Config;
 public class LlmConfig
 {
     public string? ApiKey { get; set; }
-    public bool ApiKeyRequired { get; set; } = false;
     public string Url { get; set; } = string.Empty;
     public string Model { get; set; } = string.Empty;
     public string SystemPrompt { get; set; } = string.Empty;

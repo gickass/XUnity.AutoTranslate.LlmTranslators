@@ -31,7 +31,7 @@ public class LLMTranslatorEndpoint : HttpEndpoint
         var request = new XUnityWebRequest("POST", _config.Url, requestData);
         request.Headers[HttpRequestHeader.ContentType] = "application/json";
 
-        if (_config.ApiKeyRequired)
+        if (!string.IsNullOrEmpty(_config.ApiKey) && _config.Url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
             request.Headers[HttpRequestHeader.Authorization] = $"Bearer {_config.ApiKey}";
 
         context.Complete(request);

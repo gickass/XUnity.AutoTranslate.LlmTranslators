@@ -54,17 +54,16 @@ public static class ConfigFunctions
         var schemesToTry = new List<string>();
         if (baseUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase))
         {
+            schemesToTry.Add("https://" + baseUrl.Substring(7));
             schemesToTry.Add(baseUrl);
-            schemesToTry.Add("https://" + baseUrl.Substring(7)); // then HTTPS
         }
         else if (baseUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
         {
-            schemesToTry.Add(baseUrl); // HTTPS first
-            schemesToTry.Add("http://" + baseUrl.Substring(8)); // then HTTP
+            schemesToTry.Add(baseUrl);
+            schemesToTry.Add("http://" + baseUrl.Substring(8));
         }
         else
         {
-            // no scheme, try both
             schemesToTry.Add("https://" + baseUrl);
             schemesToTry.Add("http://" + baseUrl);
         }
@@ -81,10 +80,9 @@ public static class ConfigFunctions
 
             var variants = new List<string>
             {
-            Combine("responses"),
-            Combine("v1/responses"),
             Combine("v1/chat/completions"),
-            Combine("chat/completions"),
+            Combine("api/v1/chat/completions"),
+            Combine("api/paas/v4/chat/completions")
             };
 
 
@@ -100,24 +98,24 @@ public static class ConfigFunctions
                     var req = (HttpWebRequest)WebRequest.Create(url);
                     req.Method = "POST";
                     req.ContentType = "application/json";
-                    req.Timeout = 2500;
-
-                    if (!string.IsNullOrWhiteSpace(config.ApiKey))
+                    req.Timeout = 2000;
+                    // Only send api key on https
+                    if (!string.IsNullOrWhiteSpace(config.ApiKey) && url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
                         req.Headers["Authorization"] = $"Bearer {config.ApiKey}";
 
                     using (var writer = new StreamWriter(req.GetRequestStream()))
                     {
                         writer.Write($@"
-                {{
-                    ""model"": ""{config.Model}"",
-                    ""max_tokens"": 1,
-                    ""messages"": [
                         {{
-                            ""role"": ""user"",
-                            ""content"": ""Hello there.""
-                        }}
-                    ]
-                }}");
+                            ""model"": ""{config.Model}"",
+                            ""max_tokens"": 1,
+                            ""messages"": [
+                            {{
+                                ""role"": ""user"",
+                                ""content"": ""Hello there.""
+                            }}
+                        ]
+                    }}");
                     }
 
                     using var resp = (HttpWebResponse)req.GetResponse();
@@ -136,14 +134,18 @@ public static class ConfigFunctions
                         }
                     }
                 }
-                catch (WebException)
+                catch (WebException) // ex)
                 {
-                    // if (ex.Response is HttpWebResponse response)
-                    //    Console.WriteLine($"Failed {url} - Status Code: {(int)response.StatusCode} ({response.StatusCode})");
+                    /*
+                    if (ex.Response is HttpWebResponse r)
+                        Console.WriteLine($"Failed {url}: {(int)r.StatusCode} {r.StatusCode}");
+                    */
                 }
             });
         }
         if (!found)
-            throw new Exception("Endpoint is not working or API key or specified model is not provided");
+            throw new InvalidOperationException(
+                $"Failed to connect {baseUrl}. Endpoint may not exist, or require a valid API key."
+                );
     }
 }
