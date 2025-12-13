@@ -23,14 +23,11 @@ public class LLMTranslatorEndpoint : HttpEndpoint
         // Remove artificial delays
         context.SetTranslationDelay(0.1f);
         context.DisableSpamChecks();
-
-        if (string.IsNullOrEmpty(_config.ApiKey) && _config.ApiKeyRequired)
-            throw new Exception("The endpoint requires an API key which has not been provided.");
     }
     private string GetEndpointUrl()
     {
-        if (_config.Urls != null && _config.Urls.Count > 0)
-        return _config.Urls[0];
+        if (_config.Url != null)
+        return _config.Url;
 
         throw new InvalidOperationException("No valid endpoint URL is configured.");
     }
