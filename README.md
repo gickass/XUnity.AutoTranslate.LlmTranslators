@@ -18,17 +18,17 @@ If you are here only for missing config file fix, you can download [1.01](https:
 - [Ollama Models](https://ollama.com/)
 	- Ollama is a local hosting option for LLMs. You are able to run one or more llms on your local machine of varying size. This option is free but will require you to engineer your prompts dependant on the model and/or language. Write `localhost:11434` in url config to use it
 - [KoboldCpp](https://github.com/LostRuins/koboldcpp)
-	- Good for local hosting. Write `127.0.0.1:500` in url config to use it
+	- Good for local hosting. Write `localhost:5001` in url config to use it
  - [Text Generation Web UI](https://github.com/oobabooga/text-generation-webui)
- 	- Good for local hosting. Write `localhost:5001` in url config to use it
+ 	- Good for local hosting. Write `127.0.0.1:5000` in url config to use it
 
 **Not tested but may work (A lot of endpoint support OpenAI-compatible URL)**
 - [NanoGpt](https://nano-gpt.com/api)
-	- It has rate limit 25 per second of each request. Use `nano-gpt.com` in url config to use it
+	- It has rate limit 25 per second of each request. Write `nano-gpt.com` in url config to use it
 - [OpenRouter](https://openrouter.ai)
- 	- Have a lot of model Use `openrouter.ai` in url config to use it
+ 	- Have a lot of model. Write `openrouter.ai` in url config to use it
 - [Z-ai](https://z.ai/)
- 	- They create GLM model. Use `api.z.ai` in url config to use it
+ 	- They create GLM model. Write `api.z.ai` in url config to use it
 - [Nvidia LLM](https://docs.api.nvidia.com/)
 	-  Nvidia LLM services. Some are free but still require account. Write `integrate.api.nvidia.com` in url config to use it
 
